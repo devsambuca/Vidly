@@ -5,6 +5,7 @@ import Like from './common/Like';
 import ListGroup from './common/ListGroup';
 import Pagination from './common/Pagination';
 import { paginate } from '../utils/paginate';
+import { takeRightWhile } from 'lodash';
 class Movies extends Component {
   state = { movies: getMovies(), genres: [], currentPage: 1, pageSize: 4 };
   componentDidMount() {
@@ -15,7 +16,7 @@ class Movies extends Component {
   };
 
   handleGengeSelect = (genre) => {
-    console.log(genre);
+    this.setState({ selectedGenre: genre });
   };
 
   handleDelete = (movie) => {
@@ -42,8 +43,7 @@ class Movies extends Component {
         <div className="col-3">
           <ListGroup
             items={this.state.genres}
-            textProperty="name"
-            valueProperty="_id"
+            selectedItem={this.state.selectedGenre}
             onItemSelect={this.handleGengeSelect}
           />
         </div>
